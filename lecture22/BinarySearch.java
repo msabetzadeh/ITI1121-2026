@@ -1,40 +1,35 @@
 public class BinarySearch {
 
-	public static int binarySearch(int value, int[] array) {
-		System.out.println ("Calling binSearch (" + value + ", array, lo: 0, hi: " + (array.length - 1) + ")");	
-		return binSearch(value, array, 0, array.length - 1);
-	} 
+	private static int binarySearch(int value, int[] array, int lo, int hi) {
 	
-	public static int binSearch(int value, int[] array, int lo, int hi) {
-	
-		// Base case: value not found
+		// base case: value not found
+		
 		if (lo > hi) {
-			return -1;
+			return -1; // element not found
 		}
 		
-		//Base case: value was found
-		int middle = (lo + hi) / 2;
-		System.out.println ("Middle is: " + middle);
+		int middle, newLo, newHi;
 		
-		if (value == array[middle]) {
+		middle = (lo + hi) / 2;
+		if (value == array[middle]) { // second base case: element found in the middle
 			return middle;
 		}
-		
-		// General case:
-		
-		int newLo, newHi;
 		
 		if (value < array[middle]) {
 			newLo = lo;
 			newHi = middle - 1;
+		
 		} else {
 			newLo = middle + 1;
-			newHi = hi;
+			newHi =  hi;
 		}
 		
-		System.out.println ("Calling binSearch (" + value + ", array, lo: " + newLo + ", hi: " + newHi + ")");
-		return binSearch(value, array, newLo, newHi);
-	}
+		return binarySearch(value, array, newLo, newHi);
+	} 
+
+	public static int binarySearch(int value, int[] array) {
+		return binarySearch(value, array, 0, array.length  - 1);
+	} 
 	
 	public static void main (String[] args) {
 		int[] array = {1, 3, 10, 20, 25, 50, 55, 60, 70, 80, 85, 90, 95, 100};
@@ -43,7 +38,7 @@ public class BinarySearch {
 		
 		System.out.println("--------");
 
-		index = binarySearch(98, array);
+		index = binarySearch(80, array);
 		System.out.println("Index returned is: " + index);
 	}
 
